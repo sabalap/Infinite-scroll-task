@@ -6,6 +6,10 @@ body{
   max-width: 1200px;
   margin: 0 auto;
 }
+a{
+  text-decoration: none;
+  color: black;
+}
 .users-list{
   display: flex;
   flex-direction: row;
@@ -19,6 +23,7 @@ body{
   margin: 10px;
   border: 1px solid #ccc;
   cursor: pointer;
+  display: block;
 }
 .user-content img{
   width: 100%;

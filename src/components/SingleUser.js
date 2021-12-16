@@ -1,21 +1,23 @@
-import React, { useEffect } from 'react';
-import { url } from '../utils/constants';
-import { useSingleUserContext } from '../context/single_user_context';
-import { useParams } from 'react-router-dom';
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useSingleUserContext } from "../context/single_user_context";
+import { singleUserUrl as url } from "../API";
+import Friends from "./Friends";
 const SingleUser = () => {
     const {id} = useParams();
     const {
-        single_user_loading:loading,
-        single_user: user,
+        single_user_error:error,
+        single_user,
         fetchSingleUser
     } = useSingleUserContext();
     useEffect(() => {
         fetchSingleUser(`${url}${id}`)
     },[id])
-    const {address,company,email,imageUrl,ip,jobArea,jobDescriptor,jobType,lastName,name,prefix,title} = user;
-    if(loading) {
-        return <p>Loading...</p>
+    
+    if(error) {
+        return <p>Error</p>
     }
+    const {imageUrl,name,prefix,lastName,title,email,ip,jobArea,jobType,company,address} = single_user;
     return (
         <div className="container">
             <div className="header-wrapper">
@@ -80,6 +82,7 @@ const SingleUser = () => {
                         </div>
                     </fieldset>
                 </div>
+                <Friends id={id}/>
             </div>
         </div>
     );
