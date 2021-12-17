@@ -27,7 +27,7 @@ export default function Users() {
                     if(users.length === index +1) {
                       return <div ref={lastUserRef} key={user.id} className="user">
                         <Link to={`/user/${user.id}`} className="user-content">
-                          <img src={user.imageUrl} alt="" />
+                          <img src={`${user.imageUrl}?v=${user.id}`} alt="" />
                           <div className="user-content-description">
                               <strong>
                                   {user.prefix} {user.name} {user.lastName}
@@ -39,7 +39,7 @@ export default function Users() {
                     }else{
                       return <div key={user.id} className="user">
                                 <Link to={`/user/${user.id}`} className="user-content">
-                                <img src={user.imageUrl} alt="" />
+                                <img src={`${user.imageUrl}?v=${user.id}`} alt="" />
                                 
                                 <div className="user-content-description">
                                   <strong>

@@ -1,24 +1,18 @@
 import { Link } from "react-router-dom";
 import {useState,useRef,useCallback, useEffect} from "react";
 import useFriends from "../useFriends";
-import axios from "axios";
-import { friendsUrl } from "../utils/constants";
 const Friends = ({id}) => {
    const [pageNumber,setPageNumber] = useState(1);
+   useEffect(() => {
+    setPageNumber(1)
+ },[id])
    const {
      friends,
      hasMore,
      loading,
      error
    } = useFriends(id,pageNumber)
-   const fetchFriends = async () => {
-    const response = await axios.get(friendsUrl(id,pageNumber))
-    const page = await response.data.pagination.current;
-    setPageNumber(page)
-   }
-   useEffect(() => {
-    fetchFriends();
-  },[pageNumber])
+
 
    const observer = useRef();
    const lastFriendRef = useCallback(node => {
@@ -38,7 +32,7 @@ const Friends = ({id}) => {
                     if(friends.length === index +1) {
                       return <div ref={lastFriendRef} key={friend.id} className="user">
                         <Link to={`/user/${friend.id}`} className="user-content">
-                          <img src={friend.imageUrl} alt="" />
+                          <img src={`${friend.imageUrl}?v=${friend.id}`} alt="" />
                           <div className="user-content-description">
                               <strong>
                                   {friend.prefix} {friend.name} {friend.lastName}
@@ -50,7 +44,7 @@ const Friends = ({id}) => {
                     }else{
                       return <div key={friend.id} className="user">
                                 <Link to={`/user/${friend.id}`} className="user-content">
-                                <img src={friend.imageUrl} alt="" />
+                                <img src={`${friend.imageUrl}?v=${friend.id}`} alt="" />
                                 
                                 <div className="user-content-description">
                                   <strong>
